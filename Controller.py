@@ -1,37 +1,37 @@
 from flask import Flask
 from DecisionTree import DecisionTreeClass
-app = Flask(__name__)
 
-dtree = DecisionTreeClass()
-__name__ = "__main__"
+myApp = Flask(__name__)
 
-@app.route("/")
+
+@myApp.route("/")
 def index():
+    dtree = DecisionTreeClass()
     return "Index!"
 
-@app.route("/build")
+@myApp.route("/build")
 def build():
     dtree.build("dataset2.csv")
     time = dtree.getBuildTime()
     return "time = " + str(time)
 
-@app.route("/load")
+@myApp.route("/load")
 def load():
     dtree.loadtree()
     return 'loaded'
 
-@app.route("/time")
+@myApp.route("/time")
 def time():
     time = dtree.getBuildTime()
     return "time = " + str(time)
 
-@app.route("/members")
+@myApp.route("/members")
 def members():
     return "Members"
 
 
 
-if __name__ == "__main__":
-    app.run()
+if myApp == "__main__":
+    myApp.run()
 
 
