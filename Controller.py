@@ -25,6 +25,11 @@ def time():
     time = dtree.getBuildTime()
     return "time = " + str(time)
 
+@app.route("/save")
+def save():
+    return dtree.saveTree()
+
+
 @app.route("/members")
 def members():
     return "Members"
