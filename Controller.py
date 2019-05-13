@@ -3,6 +3,7 @@ from DecisionTree import DecisionTreeClass
 app = Flask(__name__)
 
 dtree = DecisionTreeClass()
+__name__ = "__main__"
 
 @app.route("/")
 def index():
