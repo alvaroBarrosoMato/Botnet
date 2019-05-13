@@ -1,25 +1,36 @@
-from flask import Flask, request
-from flask_restful import Resource, Api
-
+from flask import Flask
+from DecisionTree import DecisionTreeClass
 app = Flask(__name__)
-api = Api(app)
 
-app.run(port='5002')
+dtree = DecisionTreeClass()
 
-class Clasificador(Resource):
-    def get(self):
-        return {'clase': [1]}  # Fetches first column that is Employee ID
+@app.route("/")
+def index():
+    return "Index!"
+
+@app.route("/build")
+def build():
+    dtree.build("dataset2.csv")
+    time = dtree.getBuildTime()
+    return "time = " + str(time)
+
+@app.route("/load")
+def load():
+    dtree.loadtree()
+    return 'loaded'
+
+@app.route("/time")
+def time():
+    time = dtree.getBuildTime()
+    return "time = " + str(time)
+
+@app.route("/members")
+def members():
+    return "Members"
 
 
-class ArbolDeDecision(Resource):
-    def get(self):
-
-        return {'clase': []}  # Fetches first column that is Employee ID
-
-
-
-api.add_resource(Clasificador, '/clasificador')  # Route_1
-api.add_resource(ArbolDeDecision, '/arboldedecision')  # Route_1
 
 if __name__ == "__main__":
-  app.run()
+    app.run()
+
+
