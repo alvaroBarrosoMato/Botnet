@@ -9,7 +9,7 @@ dtree = DecisionTreeClass()
 def index():
     return "Index!"
 
-@app.route("/build/<string:dataset>'")
+@app.route("/build/<string:dataset>")
 def build(dataset):
     dtree.build(dataset)
     time = dtree.getBuildTime()
