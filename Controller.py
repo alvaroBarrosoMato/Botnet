@@ -9,9 +9,9 @@ dtree = DecisionTreeClass()
 def index():
     return "Index!"
 
-@app.route("/build")
-def build():
-    dtree.build("dataset2.csv")
+@app.route("/build/<string:dataset>'")
+def build(dataset):
+    dtree.build(dataset)
     time = dtree.getBuildTime()
     return "time = " + str(time)
 
