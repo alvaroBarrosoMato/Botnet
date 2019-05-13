@@ -2,11 +2,11 @@ from flask import Flask
 from DecisionTree import DecisionTreeClass
 
 myApp = Flask(__name__)
+dtree = DecisionTreeClass()
 
 
 @myApp.route("/")
 def index():
-    dtree = DecisionTreeClass()
     return "Index!"
 
 @myApp.route("/build")
