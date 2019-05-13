@@ -1,1 +1,1 @@
-web: python Controller.py
+web: gunicorn Controller.py
