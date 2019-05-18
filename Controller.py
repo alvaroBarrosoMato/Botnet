@@ -28,7 +28,7 @@ def test2():
 @app.route("/3")
 def test3():
     result = dtree.getBuildTime()
-    return "Time: " + result
+    return "Time = " + str(result)
 
 
 
