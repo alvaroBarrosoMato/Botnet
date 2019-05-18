@@ -21,6 +21,7 @@ def hola():
 class DecisionTreeClass:
 
     rtree = classifier.DecisionTreeClassifier()
+    buildTime = 0;
     trainData = 0
     features = 0
     start = 0
@@ -39,8 +40,9 @@ class DecisionTreeClass:
 
         export_graphviz(self.rtree, out_file='DecisionTree.dot', feature_names=self.features)
 
-        predictions = self.rtree.predict(trainData[self.features])
+        buildTime = self.end - self.start
         value = trainData["ip"]
+        print("" + str(buildTime))
         return self
 
     def saveTree(self, fileName):
@@ -66,7 +68,9 @@ class DecisionTreeClass:
         self.rtree.predict(data)
         return 1;
 
-    def test(self, fileName, ):
+    def test(self, fileName):
+
+        predictions = self.rtree.predict(trainData[self.features])
         self.testData = pd.read_csv(fileName)
         self.testData = self.testData.fillna(0)
         self.aciertos = 0
