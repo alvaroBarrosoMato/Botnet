@@ -1,2 +1,2 @@
 web: gunicorn Controller:app
-worker: python DecisionTree.py
+worker: python worker.py
