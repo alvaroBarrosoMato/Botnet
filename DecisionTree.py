@@ -17,7 +17,7 @@ def hola():
     return "Hola Adios"
 
 def construir(dataset, name):
-    dtree = DecisionTreeClass()
+    dtree = DecisionTreeClass(name)
     dtree = dtree.build(dataset, name)
     print("Time - "+str(dtree.buildTime))
     return dtree
@@ -33,6 +33,9 @@ class DecisionTreeClass:
     end = 0
     predictions = 0
     testData = 0
+
+    def __init__(self, name=None):
+        self.name = name
 
     def build(self, dataset, name):
         self.name = name
