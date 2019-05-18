@@ -7,8 +7,21 @@ import sklearn.metrics
 import pickle
 import numpy
 
+import os
+import redis
+from rq import Worker, Queue, Connection
+
+
 from sklearn.tree import export_graphviz
 
+listen = ['high', 'default', 'low']
+redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+conn = redis.from_url(redis_url)
+
+if __name__ == '__main__':
+    with Connection(conn):
+        worker = Worker(map(Queue, listen))
+        worker.work()
 
 
 class DecisionTreeClass:
@@ -32,17 +45,27 @@ class DecisionTreeClass:
 
         export_graphviz(self.rtree, out_file='DecisionTree.dot', feature_names=self.features)
 
-        pickle.dump(self.rtree, (open('treeModel.sav', 'wb')))
-
         predictions = self.rtree.predict(trainData[self.features])
         value = trainData["ip"]
 
-    def loadtree(self):
-        self.rtree = pickle.load(open('treeModel.sav', 'rb'))
-        return self.end - self.start
+    def saveTree(self, fileName):
+        pickle.dump(self.rtree, (open(fileName, 'wb')))
+        return "Saved"
+
+    def loadtree(self, fileName):
+        self.rtree = pickle.load(open(fileName, 'rb'))
+        return "Loaded"
 
     def getBuildTime(self):
         return self.end - self.start
+
+    def graphviz(self):
+        f = open('DecisionTree.dot', 'r')
+        if f.mode == 'r':
+            s = f.read()
+            print(s)
+            return s
+        return
 
     def predict(self, data):
         self.rtree.predict(data)
