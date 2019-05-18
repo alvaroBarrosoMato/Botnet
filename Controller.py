@@ -12,7 +12,8 @@ NeuralNetwork = NeuralNetwork()
 
 q = Queue(connection=conn)
 
-dtreeJob = job()
+dtreeJob = q.enqueue(construir, "mix.csv")
+
 
 @app.route("/")
 def index():
