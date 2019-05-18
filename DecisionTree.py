@@ -14,6 +14,7 @@ from sklearn.tree import export_graphviz
 
 def hola():
     print("Hola Caracola")
+    return "Hola Adios"
 
 
 
