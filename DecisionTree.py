@@ -16,17 +16,17 @@ def hola():
     print("Hola Caracola")
     return "Hola Adios"
 
-def construir(dataset):
+def construir(dataset, name):
     dtree = DecisionTreeClass()
-    dtree = dtree.build(dataset)
+    dtree = dtree.build(dataset, name)
     print("Time - "+str(dtree.buildTime))
     return dtree
 
 
 class DecisionTreeClass:
-
+    name = 0
     rtree = classifier.DecisionTreeClassifier()
-    buildTime = 0;
+    buildTime = 0
     trainData = 0
     features = 0
     start = 0
@@ -34,7 +34,8 @@ class DecisionTreeClass:
     predictions = 0
     testData = 0
 
-    def build(self, dataset):
+    def build(self, dataset, name):
+        self.name = name
         trainData = pd.read_csv(dataset)
         trainData = trainData.fillna(0)
         self.features = list(trainData.columns[1:])

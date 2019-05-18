@@ -2,17 +2,18 @@ from flask import Flask
 from flask import json
 from DecisionTree import DecisionTreeClass, hola, construir
 from NeuralNetwork import NeuralNetwork
-
 from rq import Queue, job
 from Worker import conn
+
 
 app = Flask(__name__)
 dtree = DecisionTreeClass()
 NeuralNetwork = NeuralNetwork()
+dtreeJob = job()
+treeList = []
 
-q = Queue(connection=conn)
-
-dtreeJob = q.enqueue(construir, "mix.csv")
+dTreeQueue = Queue('dTree', connection=conn)
+workersLimit = 10
 
 
 @app.route("/")
@@ -21,19 +22,28 @@ def index():
 
 @app.route("/1")
 def test1():
-    result = q.enqueue(hola)
+    result = dTreeQueue.enqueue(hola)
     print("result" + result)
     return result
-@app.route("/2")
-def test2():
-    dtreeJob = q.enqueue(construir, "mix.csv")
+@app.route("/build/<int:index>")
+def test2(index):
+    dtreeJob = dTreeQueue.enqueue(construir, "mix.csv", index)
     return "Construyendo"
-@app.route("/3")
+
+@app.route("/getTime/<int:index>")
 def test3():
     dtree = dtreeJob.result
     result = dtree.buildTime
-
     return "Time = " + str(result)
+
+@app.route("/4")
+def buildAllDTree():
+    i = 0
+    while i < workersLimit:
+        treeList.append(dTreeQueue.enqueue(construir, "mix.csv", index))
+        i = i + 1
+
+    return "Construyendo"
 
 
 ## Decision Tree
