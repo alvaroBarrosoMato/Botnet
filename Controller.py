@@ -14,7 +14,7 @@ q = Queue(connection=conn)
 
 @app.route("/")
 def index():
-    result = q.enqueue(DecisionTreeClass.build, "2dataset.csv")
+    result = q.enqueue(dtree.build, "2dataset.csv")
     return "Index!"
 
 
