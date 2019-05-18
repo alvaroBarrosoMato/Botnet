@@ -12,7 +12,7 @@ import numpy
 from sklearn.tree import export_graphviz
 
 
-def hola(self):
+def hola():
     print("Hola Caracola")
 
 
