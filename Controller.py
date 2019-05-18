@@ -3,7 +3,7 @@ from flask import json
 from DecisionTree import DecisionTreeClass, hola, construir
 from NeuralNetwork import NeuralNetwork
 
-from rq import Queue
+from rq import Queue, job
 from Worker import conn
 
 app = Flask(__name__)
@@ -12,7 +12,7 @@ NeuralNetwork = NeuralNetwork()
 
 q = Queue(connection=conn)
 
-dtreeJob = 0;
+dtreeHob = job()
 
 @app.route("/")
 def index():
