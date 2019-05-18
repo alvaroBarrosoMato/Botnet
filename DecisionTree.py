@@ -19,6 +19,7 @@ def hola():
 def construir(dataset):
     dtree = DecisionTreeClass()
     dtree = dtree.build(dataset)
+    print("Time - "+str(dtree.buildTime))
     return dtree
 
 

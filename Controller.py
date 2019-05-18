@@ -12,6 +12,8 @@ NeuralNetwork = NeuralNetwork()
 
 q = Queue(connection=conn)
 
+dtreeJob = 0;
+
 @app.route("/")
 def index():
     return "Index!"
@@ -23,11 +25,13 @@ def test1():
     return result
 @app.route("/2")
 def test2():
-    dtree = q.enqueue(construir, "mix.csv")
+    dtreeJob = q.enqueue(construir, "mix.csv")
     return "Construyendo"
 @app.route("/3")
 def test3():
+    dtree = dtreeJob.result
     result = dtree.buildTime
+
     return "Time = " + str(result)
 
 
