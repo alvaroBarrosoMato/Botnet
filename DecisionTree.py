@@ -41,6 +41,7 @@ class DecisionTreeClass:
 
         predictions = self.rtree.predict(trainData[self.features])
         value = trainData["ip"]
+        return self
 
     def saveTree(self, fileName):
         pickle.dump(self.rtree, (open(fileName, 'wb')))

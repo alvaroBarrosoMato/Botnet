@@ -23,12 +23,12 @@ def test1():
     return result
 @app.route("/2")
 def test2():
-    result = q.enqueue(dtree.build, "2dataset.csv")
-    return "time = " + str(result)
+    dtree = q.enqueue(DecisionTreeClass().build, "2dataset.csv")
+    return "Construyendo"
 @app.route("/3")
 def test3():
-    result = q.enqueue(dtree.build, "2dataset.csv")
-    return "Index!"
+    result = dtree.getBuildTime()
+    return "Time: " + result
 
 
 
