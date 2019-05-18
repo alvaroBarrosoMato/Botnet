@@ -40,9 +40,9 @@ class DecisionTreeClass:
 
         export_graphviz(self.rtree, out_file='DecisionTree.dot', feature_names=self.features)
 
-        buildTime = self.end - self.start
+        self.buildTime = self.end - self.start
         value = trainData["ip"]
-        print("" + str(buildTime))
+        print("" + str(self.buildTime))
         return self
 
     def saveTree(self, fileName):
