@@ -9,7 +9,7 @@ from Worker import conn
 app = Flask(__name__)
 dtree = DecisionTreeClass()
 NeuralNetwork = NeuralNetwork()
-dtreeJob = job()
+dtreeJob = None
 treeList = []
 
 dTreeQueue = Queue('dTree', connection=conn)
