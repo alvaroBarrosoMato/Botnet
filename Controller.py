@@ -19,6 +19,7 @@ def index():
 @app.route("/1")
 def test1():
     result = q.enqueue(hola)
+    print("result" + result)
     return result
 @app.route("/2")
 def test2():
