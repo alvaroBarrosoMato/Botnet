@@ -31,16 +31,14 @@ def test2(index):
     return "Construyendo"
 
 @app.route("/getTime/<int:index>")
-def test3():
-    dtree = dtreeJob.result
-    result = dtree.buildTime
-    return "Time = " + str(result)
+def test3(index):
+    return "Time = " + str(treeList.__getitem__(index).buildTime)
 
 @app.route("/4")
 def buildAllDTree():
     i = 0
     while i < workersLimit:
-        treeList.append(dTreeQueue.enqueue(construir, "mix.csv", index))
+        treeList.append(dTreeQueue.enqueue(construir, "mix.csv", index).result)
         i = i + 1
 
     return "Construyendo"
