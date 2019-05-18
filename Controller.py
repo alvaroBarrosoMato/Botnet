@@ -19,7 +19,7 @@ def index():
 @app.route("/1")
 def test1():
     result = q.enqueue(hola)
-    return "result"
+    return result
 @app.route("/2")
 def test2():
     result = q.enqueue(dtree.build, "2dataset.csv")
