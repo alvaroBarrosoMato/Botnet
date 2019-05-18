@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import json
-from DecisionTree import DecisionTreeClass, hola
+from DecisionTree import DecisionTreeClass, hola, construir
 from NeuralNetwork import NeuralNetwork
 
 from rq import Queue
@@ -23,13 +23,12 @@ def test1():
     return result
 @app.route("/2")
 def test2():
-    dtree = q.enqueue(DecisionTreeClass().build, "mix.csv")
+    dtree = q.enqueue(construir, "mix.csv")
     return "Construyendo"
 @app.route("/3")
 def test3():
     result = dtree.buildTime
     return "Time = " + str(result)
-
 
 
 ## Decision Tree

@@ -16,6 +16,10 @@ def hola():
     print("Hola Caracola")
     return "Hola Adios"
 
+def construir(dataset):
+    dtree = DecisionTreeClass()
+    dtree = dtree.build(dataset)
+    return dtree
 
 
 class DecisionTreeClass:
