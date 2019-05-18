@@ -1,10 +1,10 @@
 from flask import Flask
 from flask import json
-from DecisionTree import DecisionTreeClass
+from DecisionTree import DecisionTreeClass, hola
 from NeuralNetwork import NeuralNetwork
 
 from rq import Queue
-from DecisionTree import conn
+from Worker import conn
 
 app = Flask(__name__)
 dtree = DecisionTreeClass()
@@ -14,9 +14,20 @@ q = Queue(connection=conn)
 
 @app.route("/")
 def index():
-    result = q.enqueue(dtree.build, "2dataset.csv")
     return "Index!"
 
+@app.route("/1")
+def test1():
+    result = q.enqueue(hola)
+    return "result"
+@app.route("/2")
+def test2():
+    result = q.enqueue(dtree.build, "2dataset.csv")
+    return "time = " + str(result)
+@app.route("/3")
+def test3():
+    result = q.enqueue(dtree.build, "2dataset.csv")
+    return "Index!"
 
 
 
