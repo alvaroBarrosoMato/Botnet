@@ -32,7 +32,9 @@ def test2(index):
 
 @app.route("/getTime/<int:index>")
 def test3(index):
-    print(treeList.__sizeof__())
+    print(len(treeList))
+    print("Time = " + str(treeList[1].buildTime))
+    print("Time = " + str(treeList[index].buildTime))
     return "Time = " + str(treeList[index].buildTime)
 
 @app.route("/4")

@@ -51,7 +51,7 @@ class DecisionTreeClass:
 
         self.buildTime = self.end - self.start
         value = trainData["ip"]
-        print("" + str(self.buildTime))
+        print(str(name) + " -> " + str(self.buildTime))
         return self
 
     def saveTree(self, fileName):
