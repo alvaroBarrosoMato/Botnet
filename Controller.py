@@ -23,7 +23,7 @@ def test1():
     return result
 @app.route("/2")
 def test2():
-    dtree = q.enqueue(DecisionTreeClass().build, "2dataset.csv")
+    dtree = q.enqueue(DecisionTreeClass().build, "mix.csv")
     return "Construyendo"
 @app.route("/3")
 def test3():
