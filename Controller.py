@@ -12,7 +12,7 @@ NeuralNetwork = NeuralNetwork()
 
 q = Queue(connection=conn)
 
-dtreeHob = job()
+dtreeJob = job()
 
 @app.route("/")
 def index():
