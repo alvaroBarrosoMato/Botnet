@@ -10,6 +10,7 @@ app = Flask(__name__)
 dtree = DecisionTreeClass()
 NeuralNetwork = NeuralNetwork()
 dtreeJob = None
+jobList = []
 treeList = []
 dtreeStatus = 'new'
 dTreeQueue = Queue('dTree', connection=conn)
@@ -36,15 +37,15 @@ def getAllv2(index):
 @app.route("/dtree/load")
 def load():
     i = 0
-    while i < workersLimit:
-        treeList[i] = treeList[i].result
+    while i < len(treeList):
+        treeList[i] = jobList[i].result
         i = i + 1
     dtreeStatus = 'loaded'
     return "loaded"
 
 @app.route("/dtree/train/<int:index>/<string:dataset>")
 def train(index, dataset):
-    treeList.append(dTreeQueue.enqueue(construir, dataset + "" + str(index) + ".csv", index))
+    jobList.append(dTreeQueue.enqueue(construir, dataset + "" + str(index) + ".csv", index))
     return "Training"
 
 @app.route("/getTime/<int:index>")
@@ -52,14 +53,14 @@ def getTime(index):
     print(len(treeList))
     print("Time = " + str(treeList[1].buildTime))
     print("Time = " + str(treeList[index].buildTime))
-    return "Time = " + str(treeList[index].buildTime)
+    return str(treeList[index].buildTime)
 
 @app.route("/dtree/traintest/")
 def buildAllMix():
     dtreeStatus = 'training'
     i = 0
     while i < workersLimit:
-        treeList.append(dTreeQueue.enqueue(construir, "mix.csv", i))
+        jobList.append(dTreeQueue.enqueue(construir, "mix.csv", i))
         i = i + 1
     return "training"
 
