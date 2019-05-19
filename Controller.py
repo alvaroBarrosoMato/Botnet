@@ -54,7 +54,6 @@ def load():
     if len(jobList) > 0:
         i = 0
         while i < len(jobList):
-            print(job.get_status())
             treeList.append(jobList[i].result)
             i = i + 1
         dtreeStatus = 'loaded'
