@@ -37,13 +37,16 @@ def test1():
 
 @app.route("/dtree/get/<int:index>")
 def getAll(index):
-    if(len(treeList)>0):
+
+    if (len(treeList) > 0):
         load()
-    
-    tree = treeList[index]
-    stats = TreeStatsRow(tree.name, tree.buildTime)
-    jsonObject = json.dumps(stats.__dict__)
-    return jsonObject
+    if (len(treeList) == 0):
+        return "Waiting for Algorithms to Build"
+    else:
+        tree = treeList[index]
+        stats = TreeStatsRow(tree.name, tree.buildTime)
+        jsonObject = json.dumps(stats.__dict__)
+        return jsonObject
 
 @app.route("/dtree/load")
 def load():
@@ -66,11 +69,16 @@ def train(index, dataset):
 
 @app.route("/dtree/getTime/<int:index>")
 def getTime(index):
-    print(len(treeList))
-    print(len(jobList))
-    print("Time = " + str(treeList[1].buildTime))
-    print("Time = " + str(treeList[index].buildTime))
-    return str(treeList[index].buildTime)
+
+    if(len(treeList)>0):
+        load()
+    if (len(treeList) == 0):
+        return "Waiting for Algorithms to Build"
+    else:
+        print("Time = " + str(treeList[1].buildTime))
+        print("Time = " + str(treeList[index].buildTime))
+        return str(treeList[index].buildTime)
+
 
 @app.route("/dtree/traintest")
 def buildAllMix():
