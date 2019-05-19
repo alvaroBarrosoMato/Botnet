@@ -19,6 +19,16 @@ jobList = []
 treeList = []
 
 
+class TreeStatsRow:
+    name = 0
+    status = ''
+    buildTime = 0
+    def __init__(self, name, status, buildTime):
+        self.name = name
+        self.status = status
+        self.buildTime = buildTime
+
+
 @app.route("/1")
 def test1():
     result = dTreeQueue.enqueue(hola)
@@ -29,7 +39,9 @@ def test1():
 def getAll(index):
     print(len(treeList))
     print(len(jobList))
-    jsonObject = json.dumps(treeList[index])
+    tree = treeList[index]
+    stats = TreeStatsRow(tree.name, tree.status, tree.buildTime)
+    jsonObject = json.dumps(stats)
     return jsonObject
 
 @app.route("/dtree/load")
