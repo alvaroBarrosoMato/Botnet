@@ -21,11 +21,9 @@ treeList = []
 
 class TreeStatsRow:
     name = 0
-    status = ''
     buildTime = 0
-    def __init__(self, name, status, buildTime):
+    def __init__(self, name, buildTime):
         self.name = name
-        self.status = status
         self.buildTime = buildTime
 
 
@@ -40,7 +38,7 @@ def getAll(index):
     print(len(treeList))
     print(len(jobList))
     tree = treeList[index]
-    stats = TreeStatsRow(tree.name, tree.status, tree.buildTime)
+    stats = TreeStatsRow(tree.name, tree.buildTime)
     jsonObject = json.dumps(stats)
     return jsonObject
 
