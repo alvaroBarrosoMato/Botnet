@@ -106,7 +106,7 @@ def buildAllDTree(dataset):
         i = i + 1
     return "training"
 
-@app.route("/dtree/setdataset/<int:dataset>")
+@app.route("/dtree/setdataset/<string:dataset>")
 def train(dataset):
     testdataset = dataset
     return "New Test Dataset: " + testdataset
