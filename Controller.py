@@ -33,15 +33,15 @@ def test2(index):
 @app.route("/getTime/<int:index>")
 def test3(index):
     print(len(treeList))
-    print("Time = " + str(treeList[1].result.buildTime))
-    print("Time = " + str(treeList[index].result.buildTime))
-    return "Time = " + str(treeList[index].result.buildTime)
+    print("Time = " + str(treeList[1].buildTime))
+    print("Time = " + str(treeList[index].buildTime))
+    return "Time = " + str(treeList[index].buildTime)
 
 @app.route("/4")
 def buildAllDTree():
     i = 0
     while i < workersLimit:
-        treeList.append(dTreeQueue.enqueue(construir, "mix.csv", i))
+        treeList.append(dTreeQueue.enqueue(construir, "mix.csv", i).result)
         i = i + 1
 
     return "Construyendo"
