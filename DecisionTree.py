@@ -39,6 +39,7 @@ class DecisionTreeClass:
     predictions = 0
     testData = 0
     status = "new"
+    savefilename = 'tree.pkl'
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
@@ -96,6 +97,7 @@ class DecisionTreeClass:
         self.aciertos = 0
         self.fallos = 0
 
+        self.rtree = self.loadtree(self.savefilename)
         predictions = self.rtree.predict(self.testData[self.features])
 
         i = 0
