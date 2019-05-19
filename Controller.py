@@ -15,8 +15,8 @@ dTreeQueue = Queue('dTree', connection=conn)
 workersLimit = 10
 
 dtreeStatus = 'new'
-jobList = []
-treeList = []
+jobList = None
+treeList = None
 
 
 @app.route("/1")
@@ -128,4 +128,6 @@ def loadNeuralNetwork(filename):
 
 if __name__ == "__main__":
     app.run()
+    jobList = []
+    treeList = []
 
