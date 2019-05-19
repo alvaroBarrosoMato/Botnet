@@ -52,11 +52,12 @@ def train(index, dataset):
 @app.route("/dtree/getTime/<int:index>")
 def getTime(index):
     print(len(treeList))
+    print(len(jobList))
     print("Time = " + str(treeList[1].buildTime))
     print("Time = " + str(treeList[index].buildTime))
     return str(treeList[index].buildTime)
 
-@app.route("/dtree/traintest/")
+@app.route("/dtree/traintest")
 def buildAllMix():
     dtreeStatus = 'training'
     i = 0
