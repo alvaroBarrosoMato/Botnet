@@ -11,7 +11,7 @@ dtree = DecisionTreeClass()
 NeuralNetwork = NeuralNetwork()
 dtreeJob = None
 treeList = []
-
+dtreeStatus = 'new'
 dTreeQueue = Queue('dTree', connection=conn)
 workersLimit = 10
 
@@ -31,10 +31,12 @@ def getAll():
 
 @app.route("/dtree/load")
 def load():
-    i = 0
-    while i < workersLimit:
-        treeList[i] = treeList[i].result
-        i = i + 1
+    if dtreeStatus == 'training':
+        i = 0
+        while i < workersLimit:
+            treeList[i] = treeList[i].result
+            i = i + 1
+        dtreeStatus = 'loaded'
     return "loaded"
 
 @app.route("/dtree/train/<int:index>/<string:dataset>")
@@ -51,19 +53,21 @@ def getTime(index):
 
 @app.route("/dtree/traintest/")
 def buildAllMix():
+    dtreeStatus = 'training'
     i = 0
     while i < workersLimit:
         treeList.append(dTreeQueue.enqueue(construir, "mix.csv", i))
         i = i + 1
-    return "Construyendo"
+    return "training"
 
 @app.route("/dtree/trainAll/<string:dataset>")
 def buildAllDTree(dataset):
+    dtreeStatus = 'training'
     i = 0
     while i < workersLimit:
         treeList.append(dTreeQueue.enqueue(construir, dataset + "" + str(i) + ".csv", i))
         i = i + 1
-    return "Construyendo"
+    return "training"
 
 
 ## Decision Tree
