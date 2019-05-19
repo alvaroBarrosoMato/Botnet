@@ -36,6 +36,7 @@ def getAllv2(index):
 
 @app.route("/dtree/load")
 def load():
+    print(len(jobList))
     i = 0
     while i < len(jobList):
         treeList.append(jobList[i].result)
@@ -48,14 +49,14 @@ def train(index, dataset):
     jobList.append(dTreeQueue.enqueue(construir, dataset + "" + str(index) + ".csv", index))
     return "Training"
 
-@app.route("/getTime/<int:index>")
+@app.route("/dtree/getTime/<int:index>")
 def getTime(index):
     print(len(treeList))
     print("Time = " + str(treeList[1].buildTime))
     print("Time = " + str(treeList[index].buildTime))
     return str(treeList[index].buildTime)
 
-@app.route("/dtree/traintest/")
+@app.route("/dtree/dtree/traintest/")
 def buildAllMix():
     dtreeStatus = 'training'
     i = 0
