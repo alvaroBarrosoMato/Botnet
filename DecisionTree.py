@@ -61,6 +61,7 @@ class DecisionTreeClass:
 
         export_graphviz(self.rtree, out_file='DecisionTree.dot', feature_names=self.features)
 
+        self.saveTree(self.savefilename)
         self.buildTime = self.end - self.start
         value = trainData["ip"]
         print(str(name) + " -> " + str(self.buildTime))
