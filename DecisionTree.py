@@ -45,6 +45,7 @@ class DecisionTreeClass:
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
     def __init__(self, name=None):
+        rtree = classifier.DecisionTreeClassifier()
         self.name = name
         self.status = "new"
 
