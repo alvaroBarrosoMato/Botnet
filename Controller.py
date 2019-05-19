@@ -49,7 +49,7 @@ def getTime(index):
     print("Time = " + str(treeList[index].buildTime))
     return "Time = " + str(treeList[index].buildTime)
 
-@app.route("/dtree/trainAll/")
+@app.route("/dtree/traintest/")
 def buildAllMix(dataset):
     i = 0
     while i < workersLimit:
