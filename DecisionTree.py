@@ -24,7 +24,7 @@ def construir(dataset, name):
     return dtree
 
 def test(tree, dataset):
-    tree = tree.test(dataset)
+    tree = tree.test("testDataset.csv")
     return tree
 
 
