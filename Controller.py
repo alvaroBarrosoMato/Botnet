@@ -31,12 +31,11 @@ def getAll():
 
 @app.route("/dtree/load")
 def load():
-    if dtreeStatus == 'training':
-        i = 0
-        while i < workersLimit:
-            treeList[i] = treeList[i].result
-            i = i + 1
-        dtreeStatus = 'loaded'
+    i = 0
+    while i < workersLimit:
+        treeList[i] = treeList[i].result
+        i = i + 1
+    dtreeStatus = 'loaded'
     return "loaded"
 
 @app.route("/dtree/train/<int:index>/<string:dataset>")
