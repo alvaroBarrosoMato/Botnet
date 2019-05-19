@@ -10,13 +10,13 @@ app = Flask(__name__)
 dtree = DecisionTreeClass()
 NeuralNetwork = NeuralNetwork()
 dtreeJob = None
-jobList = []
-treeList = []
-dtreeStatus = 'new'
+
 dTreeQueue = Queue('dTree', connection=conn)
 workersLimit = 10
 
-
+dtreeStatus = 'new'
+jobList = []
+treeList = []
 
 
 @app.route("/1")
@@ -37,7 +37,7 @@ def getAllv2(index):
 @app.route("/dtree/load")
 def load():
     i = 0
-    while i < len(treeList):
+    while i < len(jobList):
         treeList[i] = jobList[i].result
         i = i + 1
     dtreeStatus = 'loaded'
@@ -69,9 +69,12 @@ def buildAllDTree(dataset):
     dtreeStatus = 'training'
     i = 0
     while i < workersLimit:
-        treeList.append(dTreeQueue.enqueue(construir, dataset + "" + str(i) + ".csv", i))
+        jobList.append(dTreeQueue.enqueue(construir, dataset + "" + str(i) + ".csv", i))
         i = i + 1
     return "training"
+
+
+
 
 
 ## Decision Tree
