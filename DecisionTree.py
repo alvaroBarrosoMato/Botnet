@@ -99,8 +99,8 @@ class DecisionTreeClass:
         self.aciertos = 0
         self.fallos = 0
 
-        self.rtree = self.loadtree(self.savefilename)
-        predictions = self.rtree.predict(self.testData[self.features])
+        tree = self.rtree
+        predictions = tree.predict(self.testData[self.features])
 
         i = 0
         l = len(self.testData[self.features])
