@@ -16,9 +16,14 @@ dTreeQueue = Queue('dTree', connection=conn)
 workersLimit = 10
 
 
-@app.route("/")
-def index():
-    return "Index!"
+@app.route("/load")
+def load():
+    i = 0
+    while i < workersLimit:
+        treeList[i] = treeList[i].result
+        i = i + 1
+
+    return "loaded!"
 
 @app.route("/1")
 def test1():
@@ -41,7 +46,7 @@ def test3(index):
 def buildAllDTree():
     i = 0
     while i < workersLimit:
-        treeList.append(dTreeQueue.enqueue(construir, "mix.csv", i).result())
+        treeList.append(dTreeQueue.enqueue(construir, "mix.csv", i))
         i = i + 1
 
     return "Construyendo"
