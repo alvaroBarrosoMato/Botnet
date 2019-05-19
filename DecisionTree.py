@@ -23,7 +23,7 @@ def construir(dataset, name):
     print("Time - "+str(dtree.buildTime))
     return dtree
 
-def test(tree, dataset):
+def test(tree):
     tree = tree.test("testDataset.csv")
     return tree
 
