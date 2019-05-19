@@ -38,7 +38,7 @@ def getAllv2(index):
 def load():
     i = 0
     while i < len(jobList):
-        treeList[i] = jobList[i].result
+        treeList.append(jobList[i].result)
         i = i + 1
     dtreeStatus = 'loaded'
     return "loaded"
