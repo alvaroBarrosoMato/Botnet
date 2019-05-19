@@ -37,8 +37,9 @@ def test1():
 
 @app.route("/dtree/get/<int:index>")
 def getAll(index):
-    print(len(treeList))
-    print(len(jobList))
+    if(len(treeList)>0):
+        load()
+    
     tree = treeList[index]
     stats = TreeStatsRow(tree.name, tree.buildTime)
     jsonObject = json.dumps(stats.__dict__)
@@ -47,7 +48,6 @@ def getAll(index):
 @app.route("/dtree/load")
 def load():
     print(len(jobList))
-    print(jobList[0].get_status())
     if len(jobList) > 0:
         i = 0
         while i < len(jobList):
@@ -56,7 +56,8 @@ def load():
             i = i + 1
         dtreeStatus = 'loaded'
         print(len(treeList))
-    return "loaded"
+        return "loaded"
+    return "Waiting for Algorithms to Build"
 
 @app.route("/dtree/train/<int:index>/<string:dataset>")
 def train(index, dataset):
