@@ -61,13 +61,16 @@ def getAll(index):
 def load():
     print(len(jobList))
     if len(jobList) > 0:
-        i = 0
-        while i < len(jobList):
-            treeList.append(jobList[i].result)
-            i = i + 1
-        dtreeStatus = 'loaded'
-        print(len(treeList))
-        return "loaded"
+        if len(treeList) == workersLimit:
+            return "Algorithms Built and Loaded"
+        else:
+            i = 0
+            while i < len(jobList):
+                treeList.append(jobList[i].result)
+                i = i + 1
+            dtreeStatus = 'loaded'
+            print(len(treeList))
+            return "loaded"
     return "Waiting for Algorithms to Build"
 
 @app.route("/dtree/train/<int:index>/<string:dataset>")
@@ -78,7 +81,7 @@ def train(index, dataset):
 @app.route("/dtree/getTime/<int:index>")
 def getTime(index):
 
-    if(len(treeList)>0):
+    if(len(treeList)==0):
         load()
     if (len(treeList) == 0):
         return "Waiting for Algorithms to Build"
@@ -113,8 +116,14 @@ def setDataset(dataset):
 
 @app.route("/dtree/test/<int:index>")
 def test(index):
-    treeList[index] = dTreeQueue.enqueue(test, treeList[index], testdataset)
-    return "Training"
+
+    if(len(treeList)>index):
+        tree = treeList[index]
+        treeList[index] = dTreeQueue.enqueue(test, tree, testdataset)
+        return "Training"
+    else:
+        return "Index Out of Bounds"
+
 
 
 
