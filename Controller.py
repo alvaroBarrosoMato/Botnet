@@ -6,6 +6,7 @@ from rq import Queue, job
 from Worker import conn
 import json
 
+
 app = Flask(__name__)
 dtree = DecisionTreeClass()
 NeuralNetwork = NeuralNetwork()
@@ -27,6 +28,7 @@ class TreeStatsRow:
         self.buildTime = buildTime
 
 
+
 @app.route("/1")
 def test1():
     result = dTreeQueue.enqueue(hola)
@@ -39,17 +41,19 @@ def getAll(index):
     print(len(jobList))
     tree = treeList[index]
     stats = TreeStatsRow(tree.name, tree.buildTime)
-    jsonObject = json.dumps(stats)
+    jsonObject = json.dumps(stats.__dict__)
     return jsonObject
 
 @app.route("/dtree/load")
 def load():
     print(len(jobList))
-    i = 0
-    while i < len(jobList):
-        treeList.append(jobList[i].result)
-        i = i + 1
-    dtreeStatus = 'loaded'
+    if len(jobList) > 0:
+        i = 0
+        while i < len(jobList):
+            treeList.append(jobList[i].result)
+            i = i + 1
+        dtreeStatus = 'loaded'
+        print(len(treeList))
     return "loaded"
 
 @app.route("/dtree/train/<int:index>/<string:dataset>")
