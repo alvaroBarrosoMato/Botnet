@@ -119,7 +119,7 @@ def test(index):
     print("treeList: "+ str(len(treeList)))
     if(len(treeList) >= index):
         tree = treeList[index]
-        treeList[index] = dTreeQueue.enqueue(test, tree)
+        treeList[index] = dTreeQueue.enqueue(tree.test, "testDataset.csv")
         return "testing"
     else:
         return "Index Out of Bounds"
