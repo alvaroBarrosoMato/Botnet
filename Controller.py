@@ -15,8 +15,8 @@ dTreeQueue = Queue('dTree', connection=conn)
 workersLimit = 10
 
 dtreeStatus = 'new'
-jobList = None
-treeList = None
+jobList = []
+treeList = []
 
 
 @app.route("/1")
