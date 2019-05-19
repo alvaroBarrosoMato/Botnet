@@ -29,12 +29,8 @@ def test1():
 def getAll(index):
     print(len(treeList))
     print(len(jobList))
-    jsonObject = json.dump(treeList[index])
+    jsonObject = json.dumps(treeList[index])
     return jsonObject
-@app.route("/dtree/get2/<int:index>")
-def getAllv2(index):
-    jsonObject = treeList[index]
-    return jsonObject.toJSON()
 
 @app.route("/dtree/load")
 def load():
