@@ -6,6 +6,7 @@ import time
 import sklearn.metrics
 import pickle
 import numpy
+import json
 
 
 
@@ -22,6 +23,9 @@ def construir(dataset, name):
     print("Time - "+str(dtree.buildTime))
     return dtree
 
+def test(tree, dataset):
+    return tree.test(dataset)
+
 
 class DecisionTreeClass:
     name = 0
@@ -33,9 +37,15 @@ class DecisionTreeClass:
     end = 0
     predictions = 0
     testData = 0
+    status = "new"
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
     def __init__(self, name=None):
         self.name = name
+        self.status = "new"
+
 
     def build(self, dataset, name):
         self.name = name
@@ -52,6 +62,7 @@ class DecisionTreeClass:
         self.buildTime = self.end - self.start
         value = trainData["ip"]
         print(str(name) + " -> " + str(self.buildTime))
+        self.status = "trained"
         return self
 
     def saveTree(self, fileName):
@@ -75,20 +86,20 @@ class DecisionTreeClass:
 
     def predict(self, data):
         self.rtree.predict(data)
-        return 1;
+        return
 
     def test(self, fileName):
 
-        predictions = self.rtree.predict(trainData[self.features])
         self.testData = pd.read_csv(fileName)
         self.testData = self.testData.fillna(0)
         self.aciertos = 0
         self.fallos = 0
+
+        predictions = self.rtree.predict(self.testData[self.features])
+
         i = 0
         l = len(self.testData[self.features])
         while i < l:
-            # print (str(predictions[i]) + " - " + str(value[i]) + " / " + str(predictions[i] == value[i]))
-            # print(predictions[i] == value[i])
             if self.predictions[i] == self.trainData.iloc[i][0]:
                 self.aciertos = self.aciertos + 1
             else:
@@ -99,6 +110,7 @@ class DecisionTreeClass:
             print(self.aciertos)
             print(self.fallos)
 
+        return self
 
 
 

@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import json
-from DecisionTree import DecisionTreeClass, hola, construir
+from DecisionTree import DecisionTreeClass, hola, construir, test
 from NeuralNetwork import NeuralNetwork
 from rq import Queue, job
 from Worker import conn
@@ -23,9 +23,15 @@ treeList = []
 class TreeStatsRow:
     name = 0
     buildTime = 0
-    def __init__(self, name, buildTime):
+    aciertos = 0
+    fallos = 0
+    percAcierto = 0
+    def __init__(self, name, buildTime, aciertos, fallos, percAcierto):
         self.name = name
         self.buildTime = buildTime
+        self.aciertos = aciertos
+        self.fallos = fallos
+        self.percAcierto = percAcierto
 
 
 
@@ -38,13 +44,14 @@ def test1():
 @app.route("/dtree/get/<int:index>")
 def getAll(index):
 
-    if (len(treeList) > 0):
+    if (len(treeList) == 0):
         load()
     if (len(treeList) == 0):
         return "Waiting for Algorithms to Build"
     else:
         tree = treeList[index]
-        stats = TreeStatsRow(tree.name, tree.buildTime)
+        percAcierto = ((tree.aciertos * 100) / (tree.aciertos + tree.fallos))
+        stats = TreeStatsRow(tree.name, tree.buildTime, tree.aciertos, tree.fallos, percAcierto)
         jsonObject = json.dumps(stats.__dict__)
         return jsonObject
 
@@ -97,6 +104,11 @@ def buildAllDTree(dataset):
         i = i + 1
     return "training"
 
+@app.route("/dtree/test/<int:index>/<string:dataset>")
+def train(index, dataset):
+    datasetPath = dataset + "" + str(index) + ".csv"
+    treeList[index] = dTreeQueue.enqueue(test, treeList[index], dataset)
+    return "Training"
 
 
 
