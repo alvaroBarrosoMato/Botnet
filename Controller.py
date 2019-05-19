@@ -47,9 +47,11 @@ def getAll(index):
 @app.route("/dtree/load")
 def load():
     print(len(jobList))
+    print(jobList[0].get_status())
     if len(jobList) > 0:
         i = 0
         while i < len(jobList):
+            print(job.get_status())
             treeList.append(jobList[i].result)
             i = i + 1
         dtreeStatus = 'loaded'
