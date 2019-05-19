@@ -107,12 +107,12 @@ def buildAllDTree(dataset):
     return "training"
 
 @app.route("/dtree/setdataset/<string:dataset>")
-def train(dataset):
+def setDataset(dataset):
     testdataset = dataset
     return "New Test Dataset: " + testdataset
 
 @app.route("/dtree/test/<int:index>")
-def train(index):
+def test(index):
     treeList[index] = dTreeQueue.enqueue(test, treeList[index], testdataset)
     return "Training"
 
