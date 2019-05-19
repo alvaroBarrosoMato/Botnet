@@ -15,6 +15,8 @@ dtreeJob = None
 dTreeQueue = Queue('dTree', connection=conn)
 workersLimit = 10
 
+testdataset = 'testDataset.csv'
+
 dtreeStatus = 'new'
 jobList = []
 treeList = []
@@ -104,10 +106,14 @@ def buildAllDTree(dataset):
         i = i + 1
     return "training"
 
-@app.route("/dtree/test/<int:index>/<string:dataset>")
-def train(index, dataset):
-    datasetPath = dataset + "" + str(index) + ".csv"
-    treeList[index] = dTreeQueue.enqueue(test, treeList[index], dataset)
+@app.route("/dtree/setdataset/<int:dataset>")
+def train(dataset):
+    testdataset = dataset
+    return "New Test Dataset: " + testdataset
+
+@app.route("/dtree/test/<int:index>")
+def train(index):
+    treeList[index] = dTreeQueue.enqueue(test, treeList[index], testdataset)
     return "Training"
 
 

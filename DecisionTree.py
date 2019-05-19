@@ -24,7 +24,8 @@ def construir(dataset, name):
     return dtree
 
 def test(tree, dataset):
-    return tree.test(dataset)
+    tree = tree.test(dataset)
+    return tree
 
 
 class DecisionTreeClass:
