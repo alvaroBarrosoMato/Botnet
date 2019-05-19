@@ -56,7 +56,7 @@ def getTime(index):
     print("Time = " + str(treeList[index].buildTime))
     return str(treeList[index].buildTime)
 
-@app.route("/dtree/dtree/traintest/")
+@app.route("/dtree/traintest/")
 def buildAllMix():
     dtreeStatus = 'training'
     i = 0
