@@ -41,7 +41,7 @@ def test3(index):
 def buildAllDTree():
     i = 0
     while i < workersLimit:
-        treeList.append( dtree = dTreeQueue.enqueue(construir, "mix.csv", i).result)
+        treeList.append(dTreeQueue.enqueue(construir, "mix.csv", i).result())
         i = i + 1
 
     return "Construyendo"
