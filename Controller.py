@@ -49,13 +49,20 @@ def getTime(index):
     print("Time = " + str(treeList[index].buildTime))
     return "Time = " + str(treeList[index].buildTime)
 
+@app.route("/dtree/trainAll/")
+def buildAllMix(dataset):
+    i = 0
+    while i < workersLimit:
+        treeList.append(dTreeQueue.enqueue(construir, "mix.csv", i))
+        i = i + 1
+    return "Construyendo"
+
 @app.route("/dtree/trainAll/<string:dataset>")
 def buildAllDTree(dataset):
     i = 0
     while i < workersLimit:
         treeList.append(dTreeQueue.enqueue(construir, dataset + "" + str(i) + ".csv", i))
         i = i + 1
-
     return "Construyendo"
 
 
