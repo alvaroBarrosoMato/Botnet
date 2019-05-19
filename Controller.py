@@ -116,8 +116,8 @@ def setDataset(dataset):
 
 @app.route("/dtree/test/<int:index>")
 def test(index):
-    print("treeList: "+str(len(treeList)))
-    if(len(treeList)>index):
+    print("treeList: "+ str(len(treeList)))
+    if(len(treeList) >= index):
         tree = treeList[index]
         treeList[index] = dTreeQueue.enqueue(test, tree)
         return "testing"
