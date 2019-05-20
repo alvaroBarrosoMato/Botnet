@@ -33,16 +33,17 @@ def buildAllMix():
     dtreeStatus = 'training'
     i = 0
     while i < workersLimit:
-        dTreeQueue.enqueue(construir, "mix.csv", i, result_ttl=-1)
+        jobList[i] = dTreeQueue.enqueue(construir, "mix.csv", i, result_ttl=-1)
         i = i + 1
 
     resultado = None
     while(resultado==None):
-        queued_jobs = dTreeQueue.jobs
-        for jobs in queued_jobs:
+        for jobs in jobList:
             resultado = jobs.result
 
-    print(resultado)
+    for jobs in jobList:
+        resultado = jobs.result
+        print(resultado)
     print("Hola")
     return "training"
 
