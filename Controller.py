@@ -20,23 +20,11 @@ workersLimit = 10
 
 @app.route("/dtree/traintest")
 def buildAllMix():
-    dtreeStatus = 'training'
     i = 0
     while i < workersLimit:
-        jobList[i] = dTreeQueue.enqueue(construir, "mix.csv", i, result_ttl=-1)
+        jobList[i] = construir("mix.csv", i)
         i = i + 1
 
-    result = None
-    while(result==None):
-        i = 0
-        while (i < workersLimit):
-            treeList[i] = jobList[i].result
-            result = treeList[i]
-            if result == None:
-                break
-            i = i + 1
-
-    i = 0
     while i < workersLimit:
         print(treeList[i].buildTime)
         i = i + 1
@@ -73,14 +61,8 @@ def train():
 @app.route("/dtree/test/<int:index>")
 def test(index):
     if len(treeList) >= index:
-        tree = treeList[index]
-        treeList[index] = tree.test("testDataset.csv")
-
-        result = None
-        while (result == None):
-            treeList[index] = jobList[index].result
-            result = treeList[index]
-
+        treeList[index] = treeList[index].test("testDataset.csv")
+        result = treeList[index]
         percAcierto = ((result.aciertos * 100) / (result.aciertos + result.fallos))
         print("Aciertos: " + str(result.aciertos))
         print("fallos: " + str(result.fallos))
