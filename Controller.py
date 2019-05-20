@@ -21,6 +21,8 @@ workersLimit = 10
 def testing():
     queued_job_ids = dTreeQueue.job_ids
     queued_jobs = dTreeQueue.jobs
+    print('hola')
+    print(len(dTreeQueue))
     for ids in queued_job_ids:
         print(ids)
     for jobs in queued_jobs:
