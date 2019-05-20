@@ -55,11 +55,18 @@ def buildAllMix():
         trainJob = dTreeQueue.enqueue(construir, "mix.csv", i)
         jobList.append(trainJob)
         i = i + 1
-    treeJobs = dTreeQueue.jobs
+    print("Hola")
+    return "training"
 
-    for singleJob in treeJobs:
-        print(singleJob.get_status())
-        print(singleJob.result())
+@app.route("/dtree/traintest2")
+def buildAllMix2():
+    dtreeStatus = 'training'
+    i = 0
+    while i < workersLimit:
+
+        jobList.append(dTreeQueue.enqueue(construir, "mix.csv", i))
+        i = i + 1
+    print("Hola")
     return "training"
 
 @app.route("/dtree/load")
@@ -77,19 +84,6 @@ def load():
             print(len(treeList))
             return "loaded"
     return "Waiting for Algorithms to Build"
-
-@app.route("/status")
-def status():
-
-    treeJobs = dTreeQueue.jobs
-
-    for singleJob in treeJobs:
-
-        print(singleJob.get_status())
-        print(singleJob.result())
-
-    return "done"
-
 
 if __name__ == "__main__":
     app.run()
