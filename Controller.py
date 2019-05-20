@@ -37,14 +37,10 @@ def testing():
 @app.route("/dtree/getTime/<int:index>")
 def getTime(index):
 
-    if(len(treeList)==0):
-        load()
-    if (len(treeList) == 0):
-        return "Waiting for Algorithms to Build"
-    else:
-        print("Time = " + str(treeList[1].buildTime))
-        print("Time = " + str(treeList[index].buildTime))
-        return str(treeList[index].buildTime)
+    while len(treeList) > 0:
+        
+    print("Time = " + str(treeList[index].buildTime))
+    return str(treeList[index].buildTime)
 
 
 @app.route("/dtree/traintest")
