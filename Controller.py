@@ -19,9 +19,8 @@ testdataset = 'testDataset.csv'
 
 dtreeStatus = 'new'
 
-
-jobList = None
-treeList = None
+jobList = []
+treeList = []
 
 class TreeStatsRow:
     name = 0
@@ -37,10 +36,7 @@ class TreeStatsRow:
         self.percAcierto = percAcierto
 
 
-if __name__ == "__main__":
-    app.run()
-    jobList = []
-    treeList = []
+
 
 
 
@@ -182,6 +178,7 @@ def saveNeuralNetwork(filename):
 def loadNeuralNetwork(filename):
     return NeuralNetwork.loadtree(filename)
 
-
+if __name__ == "__main__":
+    app.run()
 
 
