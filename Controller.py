@@ -16,17 +16,6 @@ treeList = {}
 workersLimit = 10
 
 
-@app.route("/dtree/size")
-def testing():
-    queued_job_ids = dTreeQueue.job_ids
-    queued_jobs = dTreeQueue.jobs
-    print('hola')
-    print(len(dTreeQueue))
-    for ids in queued_job_ids:
-        print(ids)
-    for jobs in queued_jobs:
-            print(jobs.result)
-    return "done"
 
 @app.route("/dtree/traintest")
 def buildAllMix():
@@ -46,7 +35,12 @@ def buildAllMix():
     while i < workersLimit:
         resultado = jobList[i].result
         i = i + 1
-        print(resultado)
+
+    while i < workersLimit:
+        treeList[i] = jobList[i].result
+        i = i + 1
+        print(treeList[i].buildTime)
+
     print("Hola")
     return "training"
 
