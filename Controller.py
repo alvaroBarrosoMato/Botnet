@@ -23,15 +23,13 @@ connection = pika.BlockingConnection(params) # Connect to CloudAMQP
 channel = connection.channel() # start a channel
 channel.queue_declare(queue='hello')
 channel.basic_publish(exchange='', routing_key='hello', body='Hello CloudAMQP!')
-print " [x] Sent 'Hello World!'"
+print (" [x] Sent 'Hello World!'")
 
 
 def callback(ch, method, properties, body):
-  print " [x] Received %r" % (body)
+  print ( " [x] Received %r" % (body))
 
-channel.basic_consume(callback,
-    queue='hello',
-    no_ack=True)
+channel.basic_consume(callback, queue='hello', no_ack=True)
 
 channel.start_consuming()
 
