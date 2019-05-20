@@ -70,11 +70,11 @@ class DecisionTreeClass:
         return self
 
     def saveTree(self, fileName):
-        pickle.dump(self.rtree, (open(fileName, 'wb')))
+        pickle.dump(self, (open(fileName, 'wb')))
         return "Saved"
 
     def loadTree(self, fileName):
-        self.rtree = pickle.load(open(fileName, 'rb'))
+        self = pickle.load(open(fileName, 'rb'))
         return "Loaded"
 
     def getBuildTime(self):
