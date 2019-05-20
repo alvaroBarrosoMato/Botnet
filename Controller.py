@@ -29,9 +29,11 @@ def buildAllMix():
     result = None
     while(result==None):
         i = 0
-        while i < workersLimit:
+        while (i < workersLimit):
             treeList[i] = jobList[i].result
             result = treeList[i]
+            if result == None:
+                break
             i = i + 1
 
     i = 0
@@ -41,6 +43,42 @@ def buildAllMix():
 
     return "Trained"
 
+@app.route("/dtree/train")
+def train():
+    dtreeStatus = 'training'
+    i = 0
+    while i < workersLimit:
+        jobList[i] = dTreeQueue.enqueue(construir, "mix.csv", i, result_ttl=-1)
+        i = i + 1
+
+    result = None
+    while(result==None):
+        i = 0
+        while (i < workersLimit):
+            treeList[i] = jobList[i].result
+            result = treeList[i]
+            if result == None:
+                break
+            i = i + 1
+
+    i = 0
+    while i < workersLimit:
+        print(treeList[i].buildTime)
+        treeList[i].saveTree('tree' + str(i) + ".pkl")
+        i = i + 1
+
+    return "Trained"
+
+@app.route("/dtree/load")
+def load(index):
+    i = 0
+    while i < workersLimit:
+        dtree = DecisionTreeClass()
+        treeList[i] = dtree.loadTree('tree' + str(i) + ".pkl")
+        i = i + 1
+    return "Saved"
+
+
 @app.route("/dtree/getTime/<int:index>")
 def getTime(index):
 
@@ -49,6 +87,7 @@ def getTime(index):
     else:
         print("Time = " + str(treeList[index].buildTime))
         return str(treeList[index].buildTime)
+
 
 @app.route("/dtree/save/<int:index>")
 def save(index):
