@@ -36,12 +36,12 @@ def buildAllMix():
         dTreeQueue.enqueue(construir, "mix.csv", i, result_ttl=-1)
         i = i + 1
 
-    jobs = None
-    jobs.result = None
-    while(jobs.result==None):
+    resultado = None
+    while(resultado==None):
         queued_jobs = dTreeQueue.jobs
         for jobs in queued_jobs:
-                print(jobs.result)
+            resultado = jobs.result
+            print(resultado)
 
 
     print("Hola")
