@@ -35,7 +35,7 @@ def buildAllMix():
     while i < workersLimit:
         resultado = jobList[i].result
         i = i + 1
-
+    i = 0
     while i < workersLimit:
         treeList[i] = jobList[i].result
         i = i + 1
@@ -43,6 +43,15 @@ def buildAllMix():
 
     print("Hola")
     return "training"
+
+@app.route("/dtree/getTime/<int:index>")
+def getTime(index):
+
+    if (len(treeList) == 0):
+        return "Waiting for Algorithms to Build"
+    else:
+        print("Time = " + str(treeList[index].buildTime))
+        return str(treeList[index].buildTime)
 
 if __name__ == "__main__":
     app.run()
