@@ -24,12 +24,13 @@ def buildAllMix():
     while i < workersLimit:
         jobList[i] = dTreeQueue.enqueue(construir, "mix.csv", i, result_ttl=-1)
         i = i + 1
-    i = 0
-    treeList[i] = None
-    while(treeList[i]==None):
+
+    result = None
+    while(result==None):
         i = 0
         while i < workersLimit:
             treeList[i] = jobList[i].result
+            result = treeList[i]
             i = i + 1
 
     i = 0
