@@ -52,8 +52,11 @@ def buildAllMix():
     dtreeStatus = 'training'
     i = 0
     while i < workersLimit:
-        jobList.append(dTreeQueue.enqueue(construir, "mix.csv", i))
+        trainJob = dTreeQueue.enqueue(construir, "mix.csv", i)
+        jobList.append(trainJob)
+        print(trainJob.get_id())
         i = i + 1
+
     return "training"
 
 @app.route("/dtree/load")
@@ -71,6 +74,17 @@ def load():
             print(len(treeList))
             return "loaded"
     return "Waiting for Algorithms to Build"
+
+@app.route("/results/<job_key>", methods=['GET'])
+def get_results(job_key):
+
+    trainJob = job.fetch(job_key, connection=conn)
+
+    if trainJob.is_finished:
+        return str(trainJob.result), 200
+    else:
+        return "Nay!", 202
+
 
 if __name__ == "__main__":
     app.run()
