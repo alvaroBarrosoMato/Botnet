@@ -18,9 +18,19 @@ workersLimit = 10
 testdataset = 'testDataset.csv'
 
 dtreeStatus = 'new'
+
+server = None
+
 jobList = None
 treeList = None
 
+class Server:
+    jobList = None
+    treeList = None
+
+    def __init__(self):
+        self.jobList = []
+        self.treeList = []
 
 class TreeStatsRow:
     name = 0
@@ -177,6 +187,7 @@ def loadNeuralNetwork(filename):
 
 if __name__ == "__main__":
     app.run()
+    server = server()
     jobList = []
     treeList = []
 
