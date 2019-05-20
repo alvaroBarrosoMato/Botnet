@@ -49,6 +49,12 @@ def test1():
     print("result" + result)
     return result
 
+@app.route("/dtree/size")
+def test1():
+    print("tree - " + len(treeList))
+    print("job - " + len(jobList))
+    return "done"
+
 @app.route("/dtree/get/<int:index>")
 def getAll(index):
 
@@ -123,7 +129,7 @@ def setDataset(dataset):
 @app.route("/dtree/test/<int:index>")
 def test(index):
     print("treeList: "+ str(len(treeList)))
-    if(len(treeList) >= index):
+    if len(treeList) >= index:
         tree = treeList[index]
         treeList[index] = dTreeQueue.enqueue(tree.test, "testDataset.csv")
         return "testing"
