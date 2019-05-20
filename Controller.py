@@ -42,9 +42,10 @@ def buildAllMix():
         while i < workersLimit:
             resultado = jobList[i].result
             i = i + 1
-
-    for jobs in jobList:
-        resultado = jobs.result
+    i = 0
+    while i < workersLimit:
+        resultado = jobList[i].result
+        i = i + 1
         print(resultado)
     print("Hola")
     return "training"
