@@ -41,9 +41,8 @@ def buildAllMix():
         queued_jobs = dTreeQueue.jobs
         for jobs in queued_jobs:
             resultado = jobs.result
-            print(resultado)
 
-
+    print(resultado)
     print("Hola")
     return "training"
 
