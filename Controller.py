@@ -22,7 +22,7 @@ workersLimit = 10
 def buildAllMix():
     i = 0
     while i < workersLimit:
-        jobList[i] = construir("mix.csv", i)
+        treeList[i] = construir("mix.csv", i)
         i = i + 1
 
     while i < workersLimit:
@@ -61,13 +61,12 @@ def train():
 @app.route("/dtree/test/<int:index>")
 def test(index):
     if len(treeList) >= index:
-        treeList[index] = treeList[index].test("testDataset.csv")
+        treeList[index].test("testDataset.csv")
         result = treeList[index]
         percAcierto = ((result.aciertos * 100) / (result.aciertos + result.fallos))
         print("Aciertos: " + str(result.aciertos))
         print("fallos: " + str(result.fallos))
         print("percAcierto: " + str(percAcierto))
-
         return "Tested"
     else:
         return "Index Out of Bounds"
