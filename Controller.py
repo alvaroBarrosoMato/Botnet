@@ -21,8 +21,8 @@ dtreeStatus = 'new'
 
 server = None
 
-jobList = None
-treeList = None
+jobList = []
+treeList = []
 
 class Server:
     jobList = None
