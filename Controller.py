@@ -30,9 +30,7 @@ def buildAllMix():
         i = 0
         while i < workersLimit:
             treeList[i] = jobList[i].result
-
             i = i + 1
-            print(treeList[i].buildTime)
 
     i = 0
     while i < workersLimit:
