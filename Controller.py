@@ -29,16 +29,12 @@ def buildAllMix():
     while(resultado==None):
         i = 0
         while i < workersLimit:
-            resultado = jobList[i].result
+            treeList[i] = jobList[i].result
             i = i + 1
+            print(treeList[i].buildTime)
+
     i = 0
     while i < workersLimit:
-        resultado = jobList[i].result
-        i = i + 1
-    i = 0
-    while i < workersLimit:
-        treeList[i] = jobList[i].result
-        i = i + 1
         print(treeList[i].buildTime)
 
     return "Trained"
