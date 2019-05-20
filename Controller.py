@@ -10,7 +10,7 @@ app = Flask(__name__)
 dtree = DecisionTreeClass()
 
 
-dTreeQueue = Queue('dTree', connection=conn)
+dTreeQueue = Queue('dTree', is_async=False, connection=conn)
 
 jobList = []
 treeList = []
