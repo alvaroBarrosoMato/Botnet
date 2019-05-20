@@ -60,8 +60,8 @@ def test1():
 
 @app.route("/dtree/size")
 def testing():
-    print("tree - " + len(treeList))
-    print("job - " + len(jobList))
+    print("tree - " + str(len(treeList)))
+    print("job - " + str(len(jobList)))
     return "done"
 
 @app.route("/dtree/get/<int:index>")
