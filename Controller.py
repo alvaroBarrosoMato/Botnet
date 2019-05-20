@@ -5,11 +5,12 @@ from NeuralNetwork import NeuralNetwork
 from rq import Queue, job
 from Worker import conn
 import json
+from redis import Redis
 
 app = Flask(__name__)
 dtree = DecisionTreeClass()
 
-
+conn = Redis()
 dTreeQueue = Queue('dTree', connection=conn)
 
 jobList = {}
