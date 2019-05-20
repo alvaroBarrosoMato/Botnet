@@ -36,6 +36,7 @@ def buildAllMix():
     i = 0
     while i < workersLimit:
         print(treeList[i].buildTime)
+        i = i + 1
 
     return "Trained"
 
