@@ -73,7 +73,7 @@ class DecisionTreeClass:
         pickle.dump(self.rtree, (open(fileName, 'wb')))
         return "Saved"
 
-    def loadtree(self, fileName):
+    def loadTree(self, fileName):
         self.rtree = pickle.load(open(fileName, 'rb'))
         return "Loaded"
 
