@@ -18,8 +18,8 @@ workersLimit = 10
 testdataset = 'testDataset.csv'
 
 dtreeStatus = 'new'
-jobList = []
-treeList = []
+jobList = {}
+treeList = {}
 
 
 class TreeStatsRow:
@@ -65,12 +65,13 @@ def load():
             return "Algorithms Built and Loaded"
         else:
             i = 0
-            while i < len(jobList):
-                treeList.append(jobList[i].result)
-                i = i + 1
-            dtreeStatus = 'loaded'
-            print(len(treeList))
-            return "loaded"
+            while jobList[0].result == None:
+                while i < len(jobList):
+                    treeList.append(jobList[i].result)
+                    i = i + 1
+                dtreeStatus = 'loaded'
+                print(len(treeList))
+                return "loaded"
     return "Waiting for Algorithms to Build"
 
 @app.route("/dtree/train/<int:index>/<string:dataset>")
