@@ -69,8 +69,30 @@ def train():
 
     return "Trained"
 
+
+@app.route("/dtree/test/<int:index>")
+def test(index):
+    if len(treeList) >= index:
+        tree = treeList[index]
+        treeList[index] = dTreeQueue.enqueue(tree.test, "testDataset.csv")
+
+        result = None
+        while (result == None):
+            treeList[index] = jobList[index].result
+            result = treeList[index]
+
+        percAcierto = ((result.aciertos * 100) / (result.aciertos + result.fallos))
+        print("Aciertos: " + str(result.aciertos))
+        print("fallos: " + str(result.fallos))
+        print("percAcierto: " + str(percAcierto))
+
+        return "Tested"
+    else:
+        return "Index Out of Bounds"
+
+
 @app.route("/dtree/load")
-def load(index):
+def loadall(index):
     i = 0
     while i < workersLimit:
         dtree = DecisionTreeClass()
