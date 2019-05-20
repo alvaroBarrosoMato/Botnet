@@ -60,12 +60,13 @@ def getAll(index):
 @app.route("/dtree/load")
 def load():
     print(len(jobList))
-    if len(jobList) > 0:
-        if len(treeList) == workersLimit:
-            return "Algorithms Built and Loaded"
-        else:
-            i = 0
-            while jobList[0].result == None:
+
+    while jobList[0].result == None:
+        if len(jobList) > 0:
+            if len(treeList) == workersLimit:
+                return "Algorithms Built and Loaded"
+            else:
+                i = 0
                 while i < len(jobList):
                     treeList[i] = (jobList[i].result)
                     i = i + 1
