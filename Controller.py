@@ -4,7 +4,8 @@ from DecisionTree import DecisionTreeClass, hola, construir, test
 from NeuralNetwork import NeuralNetwork
 from rq import Queue, job
 from Worker import conn
-import pika, os, urlparse
+import pika, os
+import urllib.parse
 
 import json
 
@@ -17,7 +18,7 @@ dTreeQueue = Queue('dTree', connection=conn)
 
 # Parse CLODUAMQP_URL (fallback to localhost)
 url_str = os.environ.get('CLOUDAMQP_URL', 'amqp://guest:guest@localhost//')
-url = urlparse.urlparse(url_str)
+url = urllib.parse.urlparse(url_str)
 params = pika.ConnectionParameters(host=url.hostname, virtual_host=url.path[1:], credentials=pika.PlainCredentials(url.username, url.password))
 connection = pika.BlockingConnection(params) # Connect to CloudAMQP
 channel = connection.channel() # start a channel
