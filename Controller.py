@@ -42,6 +42,15 @@ class TreeStatsRow:
 
 
 
+@app.route("/dtree/test/<int:index>")
+def test(index):
+    print("treeList: "+ str(len(treeList)))
+    if len(treeList) >= index:
+        tree = treeList[index]
+        treeList[index] = dTreeQueue.enqueue(tree.test, "testDataset.csv")
+        return "testing"
+    else:
+        return "Index Out of Bounds"
 
 @app.route("/1")
 def test1():
@@ -50,7 +59,7 @@ def test1():
     return result
 
 @app.route("/dtree/size")
-def test1():
+def testing():
     print("tree - " + len(treeList))
     print("job - " + len(jobList))
     return "done"
@@ -126,15 +135,7 @@ def setDataset(dataset):
     testdataset = dataset
     return "New Test Dataset: " + testdataset
 
-@app.route("/dtree/test/<int:index>")
-def test(index):
-    print("treeList: "+ str(len(treeList)))
-    if len(treeList) >= index:
-        tree = treeList[index]
-        treeList[index] = dTreeQueue.enqueue(tree.test, "testDataset.csv")
-        return "testing"
-    else:
-        return "Index Out of Bounds"
+
 
 
 
