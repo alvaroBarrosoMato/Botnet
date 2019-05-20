@@ -75,15 +75,18 @@ def load():
             return "loaded"
     return "Waiting for Algorithms to Build"
 
-@app.route("/results/<job_key>", methods=['GET'])
-def get_results(job_key):
+@app.route("/status")
+def status():
 
-    trainJob = job.fetch(job_key, connection=conn)
+    jobs = dTreeQueue.jobs
 
-    if trainJob.is_finished:
-        return str(trainJob.result), 200
-    else:
-        return "Nay!", 202
+    for singleJob in jobs:
+
+        print(singleJob.get_status())
+        print(singleJob.result())
+        print(singleJob.get_status())
+
+    return "done"
 
 
 if __name__ == "__main__":
