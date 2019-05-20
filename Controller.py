@@ -14,6 +14,8 @@ dTreeQueue = Queue('dTree', connection=conn)
 
 jobList = []
 treeList = []
+workersLimit = 10
+
 
 @app.route("/dtree/test/<int:index>")
 def test(index):
