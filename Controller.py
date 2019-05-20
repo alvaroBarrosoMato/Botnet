@@ -49,5 +49,15 @@ def getTime(index):
         print("Time = " + str(treeList[index].buildTime))
         return str(treeList[index].buildTime)
 
+@app.route("/dtree/save/<int:index>")
+def save(index):
+
+    if (len(treeList) == 0):
+        return "Waiting for Algorithms to Build"
+    else:
+        treeList[index].saveTree('tree.pkl')
+        return "Saved"
+
+
 if __name__ == "__main__":
     app.run()
