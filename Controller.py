@@ -19,10 +19,11 @@ testdataset = 'testDataset.csv'
 
 dtreeStatus = 'new'
 
-server = None
 
 jobList = []
 treeList = []
+
+
 
 class Server:
     jobList = None
@@ -31,6 +32,18 @@ class Server:
     def __init__(self):
         self.jobList = []
         self.treeList = []
+
+
+server = Server()
+
+if __name__ == "__main__":
+    app.run()
+    server = Server()
+    jobList = []
+    treeList = []
+
+
+
 
 class TreeStatsRow:
     name = 0
@@ -185,9 +198,4 @@ def loadNeuralNetwork(filename):
 
 
 
-if __name__ == "__main__":
-    app.run()
-    server = server()
-    jobList = []
-    treeList = []
 
