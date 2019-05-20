@@ -5,6 +5,7 @@ from NeuralNetwork import NeuralNetwork
 from rq import Queue, job
 from Worker import conn
 import json
+import pickle
 
 app = Flask(__name__)
 dtree = DecisionTreeClass()
@@ -58,6 +59,14 @@ def save(index):
         treeList[index].saveTree('tree.pkl')
         return "Saved"
 
+@app.route("/dtree/load/<int:index>")
+def load(index):
+
+    if (len(treeList) == 0):
+        return "Waiting for Algorithms to Build"
+    else:
+        treeList[index].loadTree('tree.pkl')
+        return "Saved"
 
 if __name__ == "__main__":
     app.run()
