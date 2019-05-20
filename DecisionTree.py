@@ -32,11 +32,10 @@ class DecisionTreeClass:
     name = 0
     rtree = classifier.DecisionTreeClassifier()
     buildTime = 0
-    trainData = 0
+    trainData = None
     features = 0
     start = 0
     end = 0
-    predictions = 0
     testData = 0
     status = "new"
     savefilename = 'tree.pkl'
@@ -105,16 +104,15 @@ class DecisionTreeClass:
         i = 0
         l = len(self.testData[self.features])
         while i < l:
-            if self.predictions[i] == self.trainData.iloc[i][0]:
+            if predictions[i] == self.testData.iloc[i][0]:
                 self.aciertos = self.aciertos + 1
             else:
                 self.fallos = self.fallos + 1
-
+            print(str(predictions[i]) + " / " + str(self.testData.iloc[i][0]))
             i = i + 1
 
-            print(self.aciertos)
-            print(self.fallos)
-
+        print(self.aciertos)
+        print(self.fallos)
         return self
 
 
