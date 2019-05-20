@@ -67,7 +67,7 @@ def load():
             i = 0
             while jobList[0].result == None:
                 while i < len(jobList):
-                    treeList.append(jobList[i].result)
+                    treeList[i] = (jobList[i].result)
                     i = i + 1
                 dtreeStatus = 'loaded'
                 print(len(treeList))
@@ -97,7 +97,7 @@ def buildAllMix():
     dtreeStatus = 'training'
     i = 0
     while i < workersLimit:
-        jobList.append(dTreeQueue.enqueue(construir, "mix.csv", i))
+        jobList[i] = (dTreeQueue.enqueue(construir, "mix.csv", i))
         i = i + 1
     return "training"
 
