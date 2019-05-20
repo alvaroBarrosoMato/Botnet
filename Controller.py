@@ -74,7 +74,7 @@ def train():
 def test(index):
     if len(treeList) >= index:
         tree = treeList[index]
-        treeList[index] = dTreeQueue.enqueue(tree.test, "testDataset.csv")
+        treeList[index] = tree.test("testDataset.csv")
 
         result = None
         while (result == None):
