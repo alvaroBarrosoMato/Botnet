@@ -41,8 +41,7 @@ def buildAllMix():
         i = i + 1
         print(treeList[i].buildTime)
 
-    print("Hola")
-    return "training"
+    return "Trained"
 
 @app.route("/dtree/getTime/<int:index>")
 def getTime(index):
