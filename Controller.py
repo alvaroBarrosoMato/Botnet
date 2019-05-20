@@ -18,8 +18,8 @@ workersLimit = 10
 testdataset = 'testDataset.csv'
 
 dtreeStatus = 'new'
-jobList = {}
-treeList = {}
+jobList = None
+treeList = None
 
 
 class TreeStatsRow:
@@ -60,19 +60,17 @@ def getAll(index):
 @app.route("/dtree/load")
 def load():
     print(len(jobList))
-
-    while jobList[0].result == None:
-        if len(jobList) > 0:
-            if len(treeList) == workersLimit:
-                return "Algorithms Built and Loaded"
-            else:
-                i = 0
-                while i < len(jobList):
-                    treeList[i] = (jobList[i].result)
-                    i = i + 1
-                dtreeStatus = 'loaded'
-                print(len(treeList))
-                return "loaded"
+    if len(jobList) > 0:
+        if len(treeList) == workersLimit:
+            return "Algorithms Built and Loaded"
+        else:
+            i = 0
+            while i < len(jobList):
+                treeList.append(jobList[i].result)
+                i = i + 1
+            dtreeStatus = 'loaded'
+            print(len(treeList))
+            return "loaded"
     return "Waiting for Algorithms to Build"
 
 @app.route("/dtree/train/<int:index>/<string:dataset>")
@@ -98,7 +96,7 @@ def buildAllMix():
     dtreeStatus = 'training'
     i = 0
     while i < workersLimit:
-        jobList[i] = (dTreeQueue.enqueue(construir, "mix.csv", i))
+        jobList.append(dTreeQueue.enqueue(construir, "mix.csv", i))
         i = i + 1
     return "training"
 
