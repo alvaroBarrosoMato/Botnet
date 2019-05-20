@@ -20,30 +20,8 @@ testdataset = 'testDataset.csv'
 dtreeStatus = 'new'
 
 
-jobList = []
-treeList = []
-
-
-
-class Server:
-    jobList = None
-    treeList = None
-
-    def __init__(self):
-        self.jobList = []
-        self.treeList = []
-
-
-server = Server()
-
-if __name__ == "__main__":
-    app.run()
-    server = Server()
-    jobList = []
-    treeList = []
-
-
-
+jobList = None
+treeList = None
 
 class TreeStatsRow:
     name = 0
@@ -57,6 +35,15 @@ class TreeStatsRow:
         self.aciertos = aciertos
         self.fallos = fallos
         self.percAcierto = percAcierto
+
+
+if __name__ == "__main__":
+    app.run()
+    jobList = []
+    treeList = []
+
+
+
 
 
 
@@ -82,17 +69,17 @@ def getAll(index):
 
 @app.route("/dtree/load")
 def load():
-    print(len(server.jobList))
-    if len(server.jobList) > 0:
-        if len(server.treeList) == workersLimit:
+    print(len(jobList))
+    if len(jobList) > 0:
+        if len(treeList) == workersLimit:
             return "Algorithms Built and Loaded"
         else:
             i = 0
-            while i < len(server.jobList):
-                server.treeList.append(server.jobList[i].result)
+            while i < len(jobList):
+                treeList.append(jobList[i].result)
                 i = i + 1
             dtreeStatus = 'loaded'
-            print(len(server.treeList))
+            print(len(treeList))
             return "loaded"
     return "Waiting for Algorithms to Build"
 
@@ -119,7 +106,7 @@ def buildAllMix():
     dtreeStatus = 'training'
     i = 0
     while i < workersLimit:
-        server.jobList.append(dTreeQueue.enqueue(construir, "mix.csv", i))
+        jobList.append(dTreeQueue.enqueue(construir, "mix.csv", i))
         i = i + 1
     return "training"
 
@@ -139,10 +126,10 @@ def setDataset(dataset):
 
 @app.route("/dtree/test/<int:index>")
 def test(index):
-    print("treeList: "+ str(len(server.treeList)))
-    if(len(server.treeList) >= index):
-        tree = server.treeList[index]
-        server.treeList[index] = dTreeQueue.enqueue(tree.test, "testDataset.csv")
+    print("treeList: "+ str(len(treeList)))
+    if(len(treeList) >= index):
+        tree = treeList[index]
+        treeList[index] = dTreeQueue.enqueue(tree.test, "testDataset.csv")
         return "testing"
     else:
         return "Index Out of Bounds"
@@ -194,7 +181,6 @@ def saveNeuralNetwork(filename):
 @app.route("/neuralnetwork/load/<string:filename>")
 def loadNeuralNetwork(filename):
     return NeuralNetwork.loadtree(filename)
-
 
 
 
